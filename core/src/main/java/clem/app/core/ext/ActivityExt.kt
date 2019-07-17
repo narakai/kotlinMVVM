@@ -3,6 +3,7 @@ package clem.app.core.ext
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
@@ -12,6 +13,17 @@ import java.io.Serializable
  * Created by leon
  * on 2019/7/9 14:17
  */
+fun fromM() = fromSpecificVersion(Build.VERSION_CODES.M)
+fun beforeM() = beforeSpecificVersion(Build.VERSION_CODES.M)
+fun fromN() = fromSpecificVersion(Build.VERSION_CODES.N)
+fun beforeN() = beforeSpecificVersion(Build.VERSION_CODES.N)
+fun fromO() = fromSpecificVersion(Build.VERSION_CODES.O)
+fun beforeO() = beforeSpecificVersion(Build.VERSION_CODES.O)
+fun fromP() = fromSpecificVersion(Build.VERSION_CODES.P)
+fun beforeP() = beforeSpecificVersion(Build.VERSION_CODES.P)
+fun fromSpecificVersion(version: Int): Boolean = Build.VERSION.SDK_INT >= version
+fun beforeSpecificVersion(version: Int): Boolean = Build.VERSION.SDK_INT < version
+
 inline fun <reified T : Activity> Activity.startKtxActivity(flags: Int? = null, extra: Bundle? = null) =
     startActivity(getIntent<T>(flags, extra))
 
