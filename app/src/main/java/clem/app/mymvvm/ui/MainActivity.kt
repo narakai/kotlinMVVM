@@ -1,5 +1,7 @@
 package clem.app.mymvvm.ui
 
+import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +24,7 @@ class MainActivity : BaseVMActivity<HomeViewModel>() {
     override fun providerVMClass(): Class<HomeViewModel>? = HomeViewModel::class.java
 
     private val homeArticleAdapter by lazy { HomeArticleAdapter() }
+    private val handler by lazy { Handler() }
 
     override fun getLayoutResId() = R.layout.activity_main
 
@@ -35,11 +38,16 @@ class MainActivity : BaseVMActivity<HomeViewModel>() {
 
     override fun initData() {
         mViewModel.getArticleList(TEST_INDEX)
+        //sim data refresh
+        handler.postDelayed({mViewModel.getArticleList(TEST_INDEX + 1)}, 5000)
     }
 
     override fun startObserve() {
         mViewModel.apply {
+            //may many data
             mArticleList.observe(this@MainActivity, Observer { it ->
+                //call when data changes
+                Log.d("data refresh", it.datas[0].title)
                 it?.let { setArticles(it) }
             })
         }
@@ -47,7 +55,7 @@ class MainActivity : BaseVMActivity<HomeViewModel>() {
 
     private fun setArticles(articleList: ArticleList) {
         homeArticleAdapter.run {
-            addData(articleList.datas)
+            replaceData(articleList.datas)
         }
     }
 }

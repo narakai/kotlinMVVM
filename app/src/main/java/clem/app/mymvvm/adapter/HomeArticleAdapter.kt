@@ -15,12 +15,6 @@ import com.chad.library.adapter.base.BaseViewHolder
 class HomeArticleAdapter(layoutResId: Int = R.layout.item_article) :
     BaseQuickAdapter<Article, BaseViewHolder>(layoutResId) {
 
-    private var showStar = true
-
-    fun showStar(showStar: Boolean) {
-        this.showStar = showStar
-    }
-
     override fun convert(helper: BaseViewHolder, item: Article) {
         helper.setText(
             R.id.articleTitle,

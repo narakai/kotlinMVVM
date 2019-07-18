@@ -23,4 +23,6 @@ class HomeViewModel : BaseViewModel() {
             executeResponse(result, { mArticleList.value = result.data }, {})
         }
     }
+
+    //may many func
 }
